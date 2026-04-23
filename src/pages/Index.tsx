@@ -70,8 +70,8 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>GS Classes | Best Maths Coaching for Class 8–12 in Delhi NCR</title>
-        <meta name="description" content="GS Classes: expert Maths coaching for Class 8–12 in Delhi NCR. Small batches (max 5), live Google Meet classes, personal doubt sessions & weekly tests. Book free demo!" />
+        <title>Only 5 Students Per Batch — GS Classes Maths</title>
+        <meta name="description" content="Most coaching centres have 30+ students. GS Classes has 5. Personal doubt sessions, weekly tests, Class 8–12. Try a free class first." />
         <link rel="canonical" href="https://gsclasses.in/" />
       </Helmet>
     <div className="min-h-screen">
