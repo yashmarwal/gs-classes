@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import Section from "@/components/Section";
 import {
   Users, Video, HeadphonesIcon, ClipboardCheck, Target, UserCheck
@@ -45,6 +46,12 @@ const facilities = [
 ];
 
 const Facilities = () => (
+  <>
+    <Helmet>
+      <title>Our Facilities | Live Classes & Small Batches | GS Classes</title>
+      <meta name="description" content="GS Classes features small batches (max 5), live Google Meet sessions, personal doubt sessions, weekly tests, PYQ practice & mentorship. See what makes us different." />
+      <link rel="canonical" href="https://gsclasses.in/facilities" />
+    </Helmet>
   <div className="min-h-screen pt-20">
     <section className="py-16 md:py-20 bg-surface">
       <div className="container text-center">
@@ -84,6 +91,7 @@ const Facilities = () => (
       </div>
     </div>
   </div>
+  </>
 );
 
 export default Facilities;
