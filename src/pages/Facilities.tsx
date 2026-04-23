@@ -50,7 +50,7 @@ const Facilities = () => (
     <Helmet>
       <title>Our Facilities | Live Classes & Small Batches | GS Classes</title>
       <meta name="description" content="GS Classes features small batches (max 5), live Google Meet sessions, personal doubt sessions, weekly tests, PYQ practice & mentorship. See what makes us different." />
-      <link rel="canonical" href="https://gsclasses.in/facilities" />
+      <link rel="canonical" href="https://gsclasses.online/facilities" />
     </Helmet>
   <div className="min-h-screen pt-20">
     <section className="py-16 md:py-20 bg-surface">

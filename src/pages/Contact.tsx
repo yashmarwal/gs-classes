@@ -29,7 +29,7 @@ const Contact = () => {
       <Helmet>
         <title>Contact GS Classes | WhatsApp +91 9990118617 | Delhi NCR</title>
         <meta name="description" content="Contact GS Classes for Maths coaching in Delhi NCR. Message us on WhatsApp at +91 9990118617 or email gsclasses74@gmail.com. Book a free demo class today!" />
-        <link rel="canonical" href="https://gsclasses.in/contact" />
+        <link rel="canonical" href="https://gsclasses.online/contact" />
       </Helmet>
     <div className="min-h-screen pt-20">
       <section className="py-16 md:py-20 bg-surface">

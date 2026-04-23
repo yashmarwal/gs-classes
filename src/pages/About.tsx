@@ -17,7 +17,7 @@ const About = () => (
     <Helmet>
       <title>About GS Classes | Expert Maths Coaching Delhi NCR</title>
       <meta name="description" content="Learn about GS Classes — our mission, teaching philosophy, and why small batches of max 5 students deliver real results in Maths for Class 8 to 12 in Delhi NCR." />
-      <link rel="canonical" href="https://gsclasses.in/about" />
+      <link rel="canonical" href="https://gsclasses.online/about" />
     </Helmet>
   <div className="min-h-screen pt-20">
     <section className="py-16 md:py-20 bg-surface">
