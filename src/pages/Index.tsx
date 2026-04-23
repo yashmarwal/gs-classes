@@ -72,7 +72,7 @@ const Index = () => {
       <Helmet>
         <title>Only 5 Students Per Batch — GS Classes Maths</title>
         <meta name="description" content="Most coaching centres have 30+ students. GS Classes has 5. Personal doubt sessions, weekly tests, Class 8–12. Try a free class first." />
-        <link rel="canonical" href="https://gsclasses.in/" />
+        <link rel="canonical" href="https://gsclasses.online/" />
       </Helmet>
     <div className="min-h-screen">
       {/* Hero */}
