@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import Section from "@/components/Section";
 import { whatsappLink } from "@/lib/constants";
@@ -54,6 +55,12 @@ const courses = [
 ];
 
 const Courses = () => (
+  <>
+    <Helmet>
+      <title>Maths Programs Class 8–12 | GS Classes Delhi NCR</title>
+      <meta name="description" content="Explore GS Classes maths programs for Class 8, 9, 10, 11 & 12. Small batches, live Google Meet classes, PYQs & weekly tests. Delhi NCR. Book a free demo!" />
+      <link rel="canonical" href="https://gsclasses.in/courses" />
+    </Helmet>
   <div className="min-h-screen pt-20">
     {/* Page Header */}
     <section className="py-16 md:py-20 bg-surface">
@@ -117,6 +124,7 @@ const Courses = () => (
       </Section>
     ))}
   </div>
+  </>
 );
 
 export default Courses;

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import Section from "@/components/Section";
 import { whatsappLink } from "@/lib/constants";
@@ -67,6 +68,12 @@ const faqs = [
 
 const Index = () => {
   return (
+    <>
+      <Helmet>
+        <title>GS Classes | Best Maths Coaching for Class 8–12 in Delhi NCR</title>
+        <meta name="description" content="GS Classes: expert Maths coaching for Class 8–12 in Delhi NCR. Small batches (max 5), live Google Meet classes, personal doubt sessions & weekly tests. Book free demo!" />
+        <link rel="canonical" href="https://gsclasses.in/" />
+      </Helmet>
     <div className="min-h-screen">
       {/* Hero */}
       <section className="relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
@@ -305,6 +312,7 @@ const Index = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

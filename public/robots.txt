@@ -40,6 +40,12 @@ Disallow: /
 User-agent: Google-Extended
 Disallow: /
 
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
 # ── Default: allow everything else ───────────────────────────────────────
 User-agent: *
 Allow: /
