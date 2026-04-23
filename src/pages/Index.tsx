@@ -81,7 +81,7 @@ const Index = () => {
             <motion.div className="lg:col-span-3" {...fadeInUp}>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-semibold mb-6">
                 <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                Trusted by 100+ students across Delhi NCR
+                Trusted by 500+ students across Delhi NCR
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-foreground leading-[1.1] mb-6">
                 Build Strong Concepts in Mathematics from Class 8 to 12
