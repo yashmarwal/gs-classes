@@ -58,8 +58,11 @@ const Courses = () => (
   <>
     <Helmet>
       <title>Maths Programs Class 8–12 | GS Classes Delhi NCR</title>
-      <meta name="description" content="Explore GS Classes maths programs for Class 8, 9, 10, 11 & 12. Small batches, live Google Meet classes, PYQs & weekly tests. Delhi NCR. Book a free demo!" />
+      <meta name="description" content="Explore our structured Maths programs for Class 8, 9, 10, 11 & 12. Small batches, live sessions, PYQ practice and weekly tests. Choose your program and book a free demo." />
       <link rel="canonical" href="https://gsclasses.online/courses" />
+      <meta property="og:title" content="Maths Programs Class 8–12 | GS Classes Delhi NCR" />
+      <meta property="og:description" content="Explore our structured Maths programs for Class 8, 9, 10, 11 & 12. Small batches, live sessions, PYQ practice and weekly tests. Choose your program and book a free demo." />
+      <meta property="og:url" content="https://gsclasses.online/courses" />
     </Helmet>
   <div className="min-h-screen pt-20">
     {/* Page Header */}
