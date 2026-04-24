@@ -71,8 +71,11 @@ const Index = () => {
     <>
       <Helmet>
         <title>Only 5 Students Per Batch — GS Classes Maths</title>
-        <meta name="description" content="Most coaching centres have 30+ students. GS Classes has 5. Personal doubt sessions, weekly tests, Class 8–12. Try a free class first." />
+        <meta name="description" content="Get expert Maths coaching for Classes 8–12 with small batch sizes, live sessions, doubt support, and regular tests. Build strong concepts and score higher with GS Classes." />
         <link rel="canonical" href="https://gsclasses.online/" />
+        <meta property="og:title" content="Only 5 Students Per Batch — GS Classes Maths" />
+        <meta property="og:description" content="Get expert Maths coaching for Classes 8–12 with small batch sizes, live sessions, doubt support, and regular tests. Build strong concepts and score higher with GS Classes." />
+        <meta property="og:url" content="https://gsclasses.online/" />
       </Helmet>
     <div className="min-h-screen">
       {/* Hero */}

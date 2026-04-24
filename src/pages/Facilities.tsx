@@ -49,8 +49,11 @@ const Facilities = () => (
   <>
     <Helmet>
       <title>Our Facilities | Live Classes & Small Batches | GS Classes</title>
-      <meta name="description" content="GS Classes features small batches (max 5), live Google Meet sessions, personal doubt sessions, weekly tests, PYQ practice & mentorship. See what makes us different." />
+      <meta name="description" content="See what sets GS Classes apart — max 5 students per batch, live Google Meet sessions, dedicated doubt support, weekly tests, PYQ practice, and personal mentorship." />
       <link rel="canonical" href="https://gsclasses.online/facilities" />
+      <meta property="og:title" content="Our Facilities | Live Classes & Small Batches | GS Classes" />
+      <meta property="og:description" content="See what sets GS Classes apart — max 5 students per batch, live Google Meet sessions, dedicated doubt support, weekly tests, PYQ practice, and personal mentorship." />
+      <meta property="og:url" content="https://gsclasses.online/facilities" />
     </Helmet>
   <div className="min-h-screen pt-20">
     <section className="py-16 md:py-20 bg-surface">
