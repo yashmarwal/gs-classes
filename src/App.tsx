@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import ScrollToTop from "@/components/ScrollToTop";
 import Index from "./pages/Index";
 import Courses from "./pages/Courses";
 import Facilities from "./pages/Facilities";
@@ -23,6 +24,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Header />
         <Routes>
           <Route path="/" element={<Index />} />
