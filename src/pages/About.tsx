@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 import Section from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { whatsappLink } from "@/lib/constants";
@@ -12,6 +13,15 @@ const fadeInUp = {
 };
 
 const About = () => (
+  <>
+    <Helmet>
+      <title>About GS Classes | Expert Maths Coaching Delhi NCR</title>
+      <meta name="description" content="GS Classes was built on one belief — every student deserves to truly understand Maths, not just memorise it. Learn about our teaching philosophy and small-batch approach." />
+      <link rel="canonical" href="https://www.gsclasses.online/about" />
+      <meta property="og:title" content="About GS Classes | Expert Maths Coaching Delhi NCR" />
+      <meta property="og:description" content="GS Classes was built on one belief — every student deserves to truly understand Maths, not just memorise it. Learn about our teaching philosophy and small-batch approach." />
+      <meta property="og:url" content="https://www.gsclasses.online/about" />
+    </Helmet>
   <div className="min-h-screen pt-20">
     <section className="py-16 md:py-20 bg-surface">
       <div className="container text-center">
@@ -61,6 +71,7 @@ const About = () => (
       </div>
     </Section>
   </div>
+  </>
 );
 
 export default About;
