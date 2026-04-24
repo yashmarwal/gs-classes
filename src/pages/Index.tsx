@@ -70,12 +70,12 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Only 5 Students Per Batch — GS Classes Maths</title>
-        <meta name="description" content="Get expert Maths coaching for Classes 8–12 with small batch sizes, live sessions, doubt support, and regular tests. Build strong concepts and score higher with GS Classes." />
-        <link rel="canonical" href="https://gsclasses.online/" />
-        <meta property="og:title" content="Only 5 Students Per Batch — GS Classes Maths" />
-        <meta property="og:description" content="Get expert Maths coaching for Classes 8–12 with small batch sizes, live sessions, doubt support, and regular tests. Build strong concepts and score higher with GS Classes." />
-        <meta property="og:url" content="https://gsclasses.online/" />
+        <title>Online Maths Tutor for Class 6–12 | GS Classes | Max 5 Students Per Batch</title>
+        <meta name="description" content="Expert online maths tuitions for Class 6 to 12, CBSE, ICSE & JEE. Small batches of only 5 students. Proven results. Book a free demo class today." />
+        <link rel="canonical" href="https://www.gsclasses.online/" />
+        <meta property="og:title" content="Online Maths Tutor for Class 6–12 | GS Classes" />
+        <meta property="og:description" content="Expert online maths tuitions for Class 6–12, CBSE, ICSE & JEE. Only 5 students per batch. Book a free demo class." />
+        <meta property="og:url" content="https://www.gsclasses.online/" />
       </Helmet>
     <div className="min-h-screen">
       {/* Hero */}
@@ -94,23 +94,29 @@ const Index = () => {
                 Trusted by 500+ students across Delhi NCR
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-foreground leading-[1.1] mb-6">
-                Build Strong Concepts in Mathematics from Class 8 to 12
+                Expert Online Maths Tuition for Class 6 to 12 &amp; JEE
               </h1>
               <p className="text-lg md:text-xl text-muted max-w-xl mb-8 text-pretty">
                 Small Batches. Personal Attention. Real Results.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <Button variant="hero" size="lg" asChild>
-                  <a href={whatsappLink("Hi GS Classes, I'd like to book a demo class.")}>
-                    Book Free Demo <ArrowRight size={18} />
-                  </a>
-                </Button>
+                <div className="flex flex-col gap-2">
+                  <Button variant="hero" size="lg" asChild>
+                    <a href={whatsappLink("Hi GS Classes, I'd like to book a demo class.")}>
+                      Book Free Demo <ArrowRight size={18} />
+                    </a>
+                  </Button>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-700 bg-amber-100 border border-amber-200 px-3 py-1.5 rounded-full w-fit">
+                    ⚡ Limited seats — only 5 per batch
+                  </span>
+                </div>
                 <Button variant="hero-outline" size="lg" asChild>
                   <a href={whatsappLink("Hi GS Classes, I have a question.")}>
                     <MessageCircle size={18} /> Chat on WhatsApp
                   </a>
                 </Button>
               </div>
+
             </motion.div>
 
             <motion.div

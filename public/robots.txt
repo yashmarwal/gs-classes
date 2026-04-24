@@ -1,4 +1,4 @@
-# robots.txt — GS Classes (https://gsclasses.online)
+# robots.txt — GS Classes (https://www.gsclasses.online)
 
 # ── Allow main crawlers ───────────────────────────────────────────────────
 User-agent: Googlebot
@@ -52,4 +52,4 @@ Allow: /
 Disallow: /api/
 
 # ── Sitemap ───────────────────────────────────────────────────────────────
-Sitemap: https://gsclasses.online/sitemap.xml
+Sitemap: https://www.gsclasses.online/sitemap.xml
