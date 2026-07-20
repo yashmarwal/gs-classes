@@ -42,21 +42,21 @@ const features = [
 
 const programs = [
   {
-    title: "Class 8 Foundation Program",
+    title: "Class 6–8 Foundation Program",
     desc: "Strong base building in Mathematics with focus on fundamentals, logic, and reasoning. Perfect start for long-term success.",
     badge: "Foundation",
     icon: BookOpen,
   },
   {
     title: "Class 9–10 Concept Builder",
-    desc: "Strengthen core concepts and prepare for board exams with deep understanding. NCERT mastery and beyond.",
+    desc: "Strengthen core concepts and prepare for CBSE/ICSE board exams with deep understanding. NCERT mastery and beyond.",
     badge: "Boards Ready",
     icon: GraduationCap,
   },
   {
     title: "Class 11–12 Advanced Program",
-    desc: "Advanced level preparation covering core concepts, boards, and competitive foundation with 1-on-1 guidance.",
-    badge: "Advanced",
+    desc: "Advanced level preparation covering core concepts, CBSE/ICSE boards, and JEE competitive foundation with 1-on-1 guidance.",
+    badge: "Advanced + JEE",
     icon: Star,
   },
 ];
@@ -80,6 +80,7 @@ const faqs = [
   { q: "What is the batch size?", a: "We keep our batches small — maximum 5 students per batch — so every student gets personal attention." },
   { q: "Can I attend a demo class?", a: "Absolutely. We offer a free demo class so you can experience our teaching style before enrolling." },
   { q: "How do I enroll?", a: "Simply message us on WhatsApp. We'll help you find the right batch and get started immediately." },
+  { q: "Do you cover CBSE and ICSE, and JEE foundation?", a: "Yes. We teach students from Class 6 to 12 across CBSE and ICSE boards, and our Class 11–12 program includes JEE foundation for competitive exam preparation." },
 ];
 
 const initials = (name: string) =>
@@ -152,8 +153,8 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <Seo
-        title="GS Classes — Mathematics Coaching for Class 8 to 12 | Small Batches, Real Results"
-        description="Mathematics coaching in small batches of max 5 students. Live classes on Google Meet, personal doubt support, weekly tests, and concept clarity for Class 8 to 12."
+        title="GS Classes — Online Maths Tuition for Class 6 to 12 & JEE | CBSE, ICSE"
+        description="Expert online Maths coaching for Class 6 to 12, CBSE, ICSE & JEE, in small batches of max 5 students. Live classes on Google Meet, personal doubt support, weekly tests, and concept clarity."
         path="/"
       />
       {/* Hero — dark editorial band with graph-paper motif */}
@@ -170,7 +171,7 @@ const Index = () => {
         <div className="container relative text-center">
           <motion.div {...fadeInUp} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-ink-foreground/80 mb-7">
             <span className="w-1.5 h-1.5 rounded-full bg-warm animate-pulse" />
-            Trusted by 100+ students across Delhi NCR
+            Trusted by 500+ students across Delhi NCR
           </motion.div>
 
           <motion.h1
@@ -181,7 +182,7 @@ const Index = () => {
             <span className="bg-gradient-to-r from-primary via-primary to-warm bg-clip-text text-transparent">
               Mathematics
             </span>
-            , from Class 8 to 12
+            , from Class 6 to 12 &amp; JEE
           </motion.h1>
 
           <motion.p {...fadeInUp} className="text-lg md:text-xl text-ink-foreground/60 max-w-xl mx-auto mb-10 text-pretty">

@@ -19,7 +19,7 @@ const fadeInUp = {
 const courses = [
   {
     icon: BookOpen,
-    title: "Class 8 Foundation Program",
+    title: "Class 6–8 Foundation Program",
     slug: "class-8-foundation",
     watermark: "√",
     desc: "Strong base building in Mathematics with focus on fundamentals, logic, and clarity. We ensure students develop a genuine understanding that carries forward through their academic journey.",
@@ -50,11 +50,11 @@ const courses = [
     title: "Class 11–12 Advanced Program",
     slug: "class-11-12-advanced",
     watermark: "Σ",
-    desc: "Advanced level preparation covering core concepts, boards, and competitive foundation. Problem-solving techniques and analytical thinking at the forefront.",
+    desc: "Advanced level preparation covering core concepts, CBSE/ICSE boards, and JEE competitive foundation. Problem-solving techniques and analytical thinking at the forefront.",
     benefits: [
       "Deep concept breakdown",
       "Problem-solving techniques",
-      "PYQs + advanced questions",
+      "JEE foundation + PYQs",
       "Weekly tests & analysis",
       "1-on-1 guidance",
     ],
@@ -89,8 +89,8 @@ const Courses = () => {
   return (
   <div className="min-h-screen">
     <Seo
-      title="Our Programs — Class 8 to 12 Math Coaching | GS Classes"
-      description="Structured Mathematics programs for Class 8 Foundation, Class 9–10 Concept Builder, and Class 11–12 Advanced — built around concept clarity, not rote memorization."
+      title="Our Programs — Class 6 to 12 & JEE Math Coaching | GS Classes"
+      description="Structured Mathematics programs for Class 6–8 Foundation, Class 9–10 Concept Builder, and Class 11–12 Advanced with JEE foundation — CBSE & ICSE, built around concept clarity, not rote memorization."
       path="/courses"
       jsonLd={[
         breadcrumbJsonLd([

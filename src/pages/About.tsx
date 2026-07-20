@@ -5,7 +5,7 @@ import Seo from "@/components/Seo";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { whatsappLink, callLink, phoneNumber } from "@/lib/constants";
 import { breadcrumbJsonLd } from "@/lib/seo";
-import { Users, Lightbulb, HeartHandshake, Target, Phone } from "lucide-react";
+import { Users, Lightbulb, HeartHandshake, Target, Phone, Award } from "lucide-react";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 16 },
@@ -18,7 +18,12 @@ const pillars = [
   {
     icon: Users,
     title: "Who We Are",
-    text: "GS Classes is a focused Mathematics coaching program for students from Class 8 to 12. We believe that every student can excel in Mathematics when given the right environment — small batches, personal attention, and a teaching approach rooted in concept clarity rather than rote learning.",
+    text: "GS Classes is a focused Mathematics coaching program for students from Class 6 to 12, including JEE foundation. We believe that every student can excel in Mathematics when given the right environment — small batches, personal attention, and a teaching approach rooted in concept clarity rather than rote learning.",
+  },
+  {
+    icon: Award,
+    title: "Our Founder",
+    text: "GS Classes was founded in 2000 by Ghanshyam Marwal, who has spent over two decades helping students build genuine confidence in Mathematics — from board exams to competitive foundations.",
   },
   {
     icon: Lightbulb,
@@ -35,8 +40,8 @@ const pillars = [
 const About = () => (
   <div className="min-h-screen">
     <Seo
-      title="About Us — GS Classes Mathematics Coaching"
-      description="GS Classes is a focused Mathematics coaching program for Class 8 to 12, built on small batches, personal attention, and teaching for concept clarity over rote learning."
+      title="About Us — GS Classes Mathematics Coaching Since 2000"
+      description="GS Classes is a focused Mathematics coaching program for Class 6 to 12 and JEE, founded in 2000 by Ghanshyam Marwal, built on small batches, personal attention, and teaching for concept clarity over rote learning."
       path="/about"
       jsonLd={breadcrumbJsonLd([
         { name: "Home", path: "/" },

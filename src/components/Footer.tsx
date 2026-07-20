@@ -5,7 +5,7 @@ import { whatsappLink, callLink, phoneNumberDisplay } from "@/lib/constants";
 import { Phone, Mail } from "lucide-react";
 
 const programs = [
-  { label: "Class 8 Foundation", slug: "class-8-foundation" },
+  { label: "Class 6–8 Foundation", slug: "class-8-foundation" },
   { label: "Class 9–10 Concept Builder", slug: "class-9-10-concept-builder" },
   { label: "Class 11–12 Advanced", slug: "class-11-12-advanced" },
 ];

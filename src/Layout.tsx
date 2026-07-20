@@ -12,7 +12,8 @@ import BackToTop from "@/components/BackToTop";
 import ScrollProgress from "@/components/ScrollProgress";
 import MobileActionBar from "@/components/MobileActionBar";
 import DemoPopup from "@/components/DemoPopup";
-import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import ScrollToTop from "@/components/ScrollToTop";
+import { organizationJsonLd, websiteJsonLd, founderJsonLd } from "@/lib/seo";
 
 const queryClient = new QueryClient();
 
@@ -22,9 +23,11 @@ const Layout = () => (
       <Head>
         <script type="application/ld+json">{JSON.stringify(organizationJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(founderJsonLd)}</script>
       </Head>
       <Toaster />
       <Sonner />
+      <ScrollToTop />
       <ScrollProgress />
       <Header />
       <div className="pb-20 md:pb-0">

@@ -4,6 +4,15 @@ export const siteName = "GS Classes";
 // using the existing favicon as an interim placeholder so this never 404s.
 export const defaultOgImage = `${siteUrl}/favicon.png`;
 
+export const founderJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${siteUrl}/#founder`,
+  name: "Ghanshyam Marwal",
+  jobTitle: "Founder & Mathematics Teacher",
+  worksFor: { "@id": `${siteUrl}/#organization` },
+};
+
 export const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "EducationalOrganization",
@@ -14,9 +23,11 @@ export const organizationJsonLd = {
   logo: `${siteUrl}/favicon.png`,
   image: `${siteUrl}/favicon.png`,
   description:
-    "Mathematics coaching for students from Class 8 to 12, with small batches of maximum 5 students, live classes on Google Meet, and personal doubt-solving attention.",
+    "Mathematics coaching for students from Class 6 to 12 and JEE foundation, covering CBSE and ICSE, with small batches of maximum 5 students, live classes on Google Meet, and personal doubt-solving attention.",
   telephone: "+919990118617",
   email: "gsclasses74@gmail.com",
+  foundingDate: "2000",
+  founder: { "@id": `${siteUrl}/#founder` },
   areaServed: {
     "@type": "Place",
     name: "Delhi NCR",
