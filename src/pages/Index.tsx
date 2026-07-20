@@ -1,12 +1,29 @@
-import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
 import Section from "@/components/Section";
-import { whatsappLink } from "@/lib/constants";
+import Seo from "@/components/Seo";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
+import CountUp from "@/components/CountUp";
+import FloatingMathSymbols from "@/components/FloatingMathSymbols";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { whatsappLink, callLink, phoneNumber } from "@/lib/constants";
 import {
   Users, Video, HeadphonesIcon, ClipboardCheck, Brain,
-  MessageCircle, Phone, BookOpen, GraduationCap, Star,
-  ChevronRight, ArrowRight
+  Phone, BookOpen, GraduationCap, Star,
+  ArrowRight, Quote, ChevronLeft, ChevronRight, HelpCircle
 } from "lucide-react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const fadeInUp = {
   initial: { opacity: 0, y: 16 },
@@ -65,108 +82,189 @@ const faqs = [
   { q: "How do I enroll?", a: "Simply message us on WhatsApp. We'll help you find the right batch and get started immediately." },
 ];
 
+const initials = (name: string) =>
+  name.split(" ").map((p) => p[0]).join("").slice(0, 2);
+
+const marqueeItems = [...features.map((f) => f.highlight), "Concept Clarity", "Real Results"];
+
 const Index = () => {
+  const [activeProgram, setActiveProgram] = useState(0);
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const ActiveProgramIcon = programs[activeProgram].icon;
+
+  const nextTestimonial = () => setActiveTestimonial((i) => (i + 1) % testimonials.length);
+  const prevTestimonial = () => setActiveTestimonial((i) => (i - 1 + testimonials.length) % testimonials.length);
+
+  // Cursor-tracking spotlight glow behind the hero copy
+  const heroRef = useRef<HTMLElement>(null);
+  const spotX = useMotionValue(50);
+  const spotY = useMotionValue(50);
+  const handleHeroMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = heroRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    spotX.set(((e.clientX - rect.left) / rect.width) * 100);
+    spotY.set(((e.clientY - rect.top) / rect.height) * 100);
+  };
+  const spotlightBackground = useTransform(
+    [spotX, spotY],
+    ([x, y]) => `radial-gradient(500px circle at ${x}% ${y}%, hsl(var(--primary) / 0.16), transparent 65%)`
+  );
+
+  // Subtle 3D tilt on the active program card
+  const tiltX = useMotionValue(0);
+  const tiltY = useMotionValue(0);
+  const tiltRotateX = useSpring(useTransform(tiltY, [-0.5, 0.5], [7, -7]), { stiffness: 300, damping: 30 });
+  const tiltRotateY = useSpring(useTransform(tiltX, [-0.5, 0.5], [-7, 7]), { stiffness: 300, damping: 30 });
+  const handleTiltMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    tiltX.set((e.clientX - rect.left) / rect.width - 0.5);
+    tiltY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+  const resetTilt = () => {
+    tiltX.set(0);
+    tiltY.set(0);
+  };
+
+  // GSAP ScrollTrigger: fill the "How It Works" timeline track as the user scrolls past it
+  const timelineTrackRef = useRef<HTMLDivElement>(null);
+  const timelineFillRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!timelineTrackRef.current || !timelineFillRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        timelineFillRef.current,
+        { height: "0%" },
+        {
+          height: "100%",
+          ease: "none",
+          scrollTrigger: {
+            trigger: timelineTrackRef.current,
+            start: "top 70%",
+            end: "bottom 80%",
+            scrub: 0.5,
+          },
+        },
+      );
+    });
+    return () => ctx.revert();
+  }, []);
+
   return (
     <div className="min-h-screen">
-      {/* Hero */}
-      <section className="relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230052FF' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
+      <Seo
+        title="GS Classes — Mathematics Coaching for Class 8 to 12 | Small Batches, Real Results"
+        description="Mathematics coaching in small batches of max 5 students. Live classes on Google Meet, personal doubt support, weekly tests, and concept clarity for Class 8 to 12."
+        path="/"
+      />
+      {/* Hero — dark editorial band with graph-paper motif */}
+      <section
+        ref={heroRef}
+        onMouseMove={handleHeroMouseMove}
+        className="relative bg-ink bg-graph-paper pt-32 pb-16 md:pt-44 md:pb-20 overflow-hidden"
+      >
+        <div className="absolute top-10 right-0 w-[600px] h-[600px] bg-primary/25 rounded-full blur-[130px] -translate-y-1/3 translate-x-1/4" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-warm/15 rounded-full blur-[120px] translate-y-1/3 -translate-x-1/4" />
+        <motion.div className="absolute inset-0 hidden md:block" style={{ background: spotlightBackground }} />
+        <FloatingMathSymbols />
 
-        <div className="container relative">
-          <div className="grid lg:grid-cols-5 gap-12 items-center">
-            <motion.div className="lg:col-span-3" {...fadeInUp}>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-semibold mb-6">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                Trusted by 100+ students across Delhi NCR
-              </div>
-              <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold text-foreground leading-[1.1] mb-6">
-                Build Strong Concepts in Mathematics from Class 8 to 12
-              </h1>
-              <p className="text-lg md:text-xl text-muted max-w-xl mb-8 text-pretty">
-                Small Batches. Personal Attention. Real Results.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Button variant="hero" size="lg" asChild>
-                  <a href={whatsappLink("Hi GS Classes, I'd like to book a demo class.")}>
-                    Book Free Demo <ArrowRight size={18} />
-                  </a>
-                </Button>
-                <Button variant="hero-outline" size="lg" asChild>
-                  <a href={whatsappLink("Hi GS Classes, I have a question.")}>
-                    <MessageCircle size={18} /> Chat on WhatsApp
-                  </a>
-                </Button>
-              </div>
-            </motion.div>
+        <div className="container relative text-center">
+          <motion.div {...fadeInUp} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-ink-foreground/80 mb-7">
+            <span className="w-1.5 h-1.5 rounded-full bg-warm animate-pulse" />
+            Trusted by 100+ students across Delhi NCR
+          </motion.div>
 
-            <motion.div
-              className="lg:col-span-2 hidden lg:block"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <div className="relative">
-                <div className="bg-surface rounded-3xl p-8 shadow-card border border-border/50">
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3 p-3 bg-background rounded-xl">
-                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-display font-bold text-sm">5</div>
-                      <div>
-                        <p className="text-sm font-semibold text-foreground">Students per Batch</p>
-                        <p className="text-xs text-muted">Maximum capacity</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-background rounded-xl">
-                      <div className="w-10 h-10 rounded-lg bg-whatsapp/10 flex items-center justify-center text-whatsapp font-display font-bold text-sm">∞</div>
-                      <div>
-                        <p className="text-sm font-semibold text-foreground">Doubt Sessions</p>
-                        <p className="text-xs text-muted">Until you understand</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 bg-background rounded-xl">
-                      <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-accent-foreground font-display font-bold text-sm">✓</div>
-                      <div>
-                        <p className="text-sm font-semibold text-foreground">Weekly Tests</p>
-                        <p className="text-xs text-muted">Track your progress</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="absolute -bottom-3 -right-3 w-full h-full bg-primary/5 rounded-3xl -z-10" />
+          <motion.h1
+            {...fadeInUp}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-ink-foreground leading-[1.05] mb-6 max-w-4xl mx-auto"
+          >
+            Build Strong Concepts in{" "}
+            <span className="bg-gradient-to-r from-primary via-primary to-warm bg-clip-text text-transparent">
+              Mathematics
+            </span>
+            , from Class 8 to 12
+          </motion.h1>
+
+          <motion.p {...fadeInUp} className="text-lg md:text-xl text-ink-foreground/60 max-w-xl mx-auto mb-10 text-pretty">
+            Small Batches. Personal Attention. Real Results.
+          </motion.p>
+
+          <motion.div {...fadeInUp} className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center mb-16">
+            <Button variant="hero" size="lg" className="rounded-full" asChild>
+              <a href={whatsappLink("Hi GS Classes, I'd like to book a demo class.")}>
+                Book Free Demo <ArrowRight size={18} />
+              </a>
+            </Button>
+            <Button variant="call" size="lg" className="hidden sm:inline-flex rounded-full" asChild>
+              <a href={callLink}>
+                <Phone size={18} fill="currentColor" /> Call {phoneNumber}
+              </a>
+            </Button>
+            <Button variant="whatsapp" size="lg" className="hidden sm:inline-flex rounded-full" asChild>
+              <a href={whatsappLink("Hi GS Classes, I have a question.")}>
+                <WhatsAppIcon size={18} /> Chat on WhatsApp
+              </a>
+            </Button>
+          </motion.div>
+
+          {/* Inline stat rail, replaces the old floating card */}
+          <motion.div
+            {...fadeInUp}
+            className="grid grid-cols-3 divide-x divide-white/10 max-w-2xl mx-auto"
+          >
+            {[
+              { value: <CountUp to={5} />, label: "Students per Batch" },
+              { value: "∞", label: "Doubt Sessions" },
+              { value: "✓", label: "Weekly Tests" },
+            ].map((s) => (
+              <div key={s.label} className="px-2 sm:px-6 py-2 text-center">
+                <p className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-ink-foreground mb-1">{s.value}</p>
+                <p className="text-[11px] sm:text-xs text-ink-foreground/50 text-balance">{s.label}</p>
               </div>
-            </motion.div>
-          </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      {/* Features */}
-      <Section className="bg-surface">
-        <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Why Choose GS Classes</h2>
-          <p className="text-muted max-w-lg mx-auto">Everything designed around one goal — making sure you actually understand mathematics.</p>
+      {/* Marquee strip */}
+      <div className="bg-accent border-y border-border overflow-hidden py-3">
+        <div className="flex whitespace-nowrap marquee-track w-max">
+          {[...marqueeItems, ...marqueeItems].map((item, i) => (
+            <span key={i} className="flex items-center gap-3 mx-4 text-sm font-semibold text-primary">
+              {item}
+              <span className="w-1.5 h-1.5 rounded-full bg-warm" />
+            </span>
+          ))}
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      </div>
+
+      {/* Features — editorial numbered list, not cards */}
+      <Section>
+        <div className="max-w-2xl mb-14">
+          <span className="text-xs font-bold uppercase tracking-widest text-primary">Why Us</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">Why Choose GS Classes</h2>
+          <p className="text-muted">Everything designed around one goal — making sure you actually understand mathematics.</p>
+        </div>
+        <div className="divide-y divide-border border-t border-border">
           {features.map((f, i) => (
             <motion.div
               key={f.title}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="group relative bg-background rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-shadow duration-300"
+              transition={{ duration: 0.5, delay: i * 0.06 }}
+              className="group flex flex-col gap-3 md:grid md:grid-cols-12 md:items-center md:gap-8 py-6 md:py-8"
             >
-              <span className="absolute top-5 right-5 text-xs font-mono text-accent-foreground/40 tabular-nums">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <div className="w-11 h-11 rounded-xl bg-accent flex items-center justify-center mb-4">
-                <f.icon size={20} className="text-primary" />
+              <div className="flex items-center gap-3 md:contents">
+                <span className="md:col-span-1 w-7 md:w-auto shrink-0 font-display text-lg md:text-3xl font-bold text-primary/30 md:text-primary/15 md:group-hover:text-primary/30 transition-colors">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="md:col-span-1 w-11 h-11 rounded-2xl bg-accent flex items-center justify-center shrink-0">
+                  <f.icon size={20} className="text-primary" />
+                </div>
+                <h3 className="md:col-span-3 font-display font-bold text-lg text-foreground">{f.title}</h3>
               </div>
-              <h3 className="font-display font-bold text-foreground mb-1">{f.title}</h3>
-              <p className="text-sm text-muted leading-relaxed">{f.desc}</p>
-              <span className="inline-block mt-3 text-xs font-semibold text-primary bg-accent px-2.5 py-1 rounded-md">
+              <p className="md:col-span-5 text-sm text-muted leading-relaxed">{f.desc}</p>
+              <span className="md:col-span-2 md:text-right text-xs font-semibold text-primary bg-accent px-2.5 py-1 rounded-full w-fit md:ml-auto">
                 {f.highlight}
               </span>
             </motion.div>
@@ -174,131 +272,222 @@ const Index = () => {
         </div>
       </Section>
 
-      {/* Programs */}
-      <Section>
-        <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Our Programs</h2>
+      {/* Programs — tabbed selector instead of a 3-card grid */}
+      <Section className="bg-surface bg-graph-paper-light">
+        <div className="text-center mb-12">
+          <span className="text-xs font-bold uppercase tracking-widest text-primary">Programs</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">Our Programs</h2>
           <p className="text-muted max-w-lg mx-auto">Structured learning paths for every stage, from building basics to mastering advanced concepts.</p>
         </div>
-        <div className="grid md:grid-cols-3 gap-6">
+
+        <div className="flex md:flex-wrap md:justify-center gap-2 mb-10 overflow-x-auto no-scrollbar snap-x snap-mandatory px-6 -mx-6 md:px-0 md:mx-0">
           {programs.map((p, i) => (
-            <motion.div
+            <button
               key={p.title}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="group relative bg-background rounded-3xl p-7 shadow-card hover:shadow-card-hover transition-all duration-300 border border-border/50 hover:border-primary/20"
+              onClick={() => setActiveProgram(i)}
+              className={`shrink-0 snap-start px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 border ${
+                activeProgram === i
+                  ? "bg-primary text-primary-foreground border-primary shadow-md"
+                  : "bg-background text-muted border-border hover:border-primary/30 hover:text-foreground"
+              }`}
             >
-              <div className="flex items-center gap-3 mb-5">
-                <div className="w-12 h-12 rounded-2xl bg-accent flex items-center justify-center">
-                  <p.icon size={22} className="text-primary" />
-                </div>
-                <span className="text-[10px] uppercase tracking-widest font-bold text-primary bg-accent px-2.5 py-1 rounded-md">{p.badge}</span>
-              </div>
-              <h3 className="font-display font-bold text-lg text-foreground mb-2">{p.title}</h3>
-              <p className="text-sm text-muted leading-relaxed mb-5">{p.desc}</p>
-              <a
-                href="/courses"
-                className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:gap-2 transition-all duration-200"
-              >
-                View Details <ChevronRight size={16} />
-              </a>
-            </motion.div>
+              {p.badge}
+            </button>
           ))}
         </div>
+
+        <motion.div
+          onMouseMove={handleTiltMove}
+          onMouseLeave={resetTilt}
+          style={{ rotateX: tiltRotateX, rotateY: tiltRotateY, transformPerspective: 800 }}
+          className="max-w-3xl mx-auto"
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeProgram}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.35 }}
+              className="bg-background rounded-[1.75rem] p-8 md:p-10 shadow-elevated border border-border text-center"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-accent flex items-center justify-center mx-auto mb-5">
+                <ActiveProgramIcon size={28} className="text-primary" />
+              </div>
+              <span className="text-[10px] uppercase tracking-widest font-bold text-primary bg-accent px-2.5 py-1 rounded-full">
+                {programs[activeProgram].badge}
+              </span>
+              <h3 className="font-display font-bold text-2xl text-foreground mt-4 mb-3">{programs[activeProgram].title}</h3>
+              <p className="text-muted leading-relaxed mb-7 max-w-xl mx-auto">{programs[activeProgram].desc}</p>
+              <Button variant="hero" size="lg" className="rounded-full" asChild>
+                <a href="/courses">
+                  View Details <ArrowRight size={18} />
+                </a>
+              </Button>
+            </motion.div>
+          </AnimatePresence>
+        </motion.div>
       </Section>
 
-      {/* How It Works */}
-      <Section className="bg-surface">
-        <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">How It Works</h2>
+      {/* How It Works — vertical connected timeline */}
+      <Section>
+        <div className="text-center mb-16">
+          <span className="text-xs font-bold uppercase tracking-widest text-primary">Process</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">How It Works</h2>
           <p className="text-muted">Four simple steps to better mathematics.</p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div ref={timelineTrackRef} className="relative max-w-2xl mx-auto">
+          <span className="absolute left-7 top-7 bottom-7 w-px bg-border" />
+          <div
+            ref={timelineFillRef}
+            className="absolute left-7 top-7 w-px bg-primary"
+            style={{ height: "0%" }}
+          />
           {steps.map((s, i) => (
             <motion.div
               key={s.num}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: -16 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="text-center"
+              className="relative flex gap-6 pb-10 last:pb-0"
             >
-              <div className="text-4xl font-display font-extrabold text-primary/15 mb-3">{s.num}</div>
-              <h3 className="font-display font-bold text-foreground mb-1">{s.title}</h3>
-              <p className="text-sm text-muted">{s.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </Section>
-
-      {/* Testimonials */}
-      <Section>
-        <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">What Students & Parents Say</h2>
-        </div>
-        <div className="grid sm:grid-cols-2 gap-5">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="bg-surface rounded-2xl p-6 border border-border/50"
-            >
-              <p className="text-sm text-foreground leading-relaxed mb-4">"{t.text}"</p>
-              <div>
-                <p className="text-sm font-semibold text-foreground">{t.name}</p>
-                <p className="text-xs text-muted">{t.role}</p>
+              <div className="shrink-0 w-14 h-14 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center font-display font-bold shadow-md z-10">
+                {s.num}
+              </div>
+              <div className="pt-2">
+                <h3 className="font-display font-bold text-lg text-foreground mb-1">{s.title}</h3>
+                <p className="text-sm text-muted">{s.desc}</p>
               </div>
             </motion.div>
           ))}
         </div>
       </Section>
 
-      {/* FAQ */}
-      <Section className="bg-surface">
-        <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Frequently Asked Questions</h2>
+      {/* Testimonials — single rotating quote carousel */}
+      <Section className="bg-surface bg-graph-paper-light">
+        <div className="text-center mb-12">
+          <span className="text-xs font-bold uppercase tracking-widest text-primary">Testimonials</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">What Students & Parents Say</h2>
         </div>
-        <div className="max-w-2xl mx-auto space-y-4">
-          {faqs.map((f, i) => (
-            <motion.details
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="group bg-background rounded-xl border border-border/50 overflow-hidden"
+        <div className="max-w-2xl mx-auto">
+          <motion.div
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.5}
+            onDragEnd={(_, info) => {
+              if (info.offset.x < -60) nextTestimonial();
+              else if (info.offset.x > 60) prevTestimonial();
+            }}
+            className="relative bg-background rounded-[1.75rem] p-8 md:p-12 shadow-elevated border border-border text-center min-h-[260px] flex flex-col justify-center cursor-grab active:cursor-grabbing touch-pan-y"
+          >
+            <Quote size={40} className="text-primary/15 mx-auto mb-4" />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTestimonial}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.35 }}
+              >
+                <p className="text-lg text-foreground leading-relaxed mb-6 text-pretty">
+                  "{testimonials[activeTestimonial].text}"
+                </p>
+                <div className="flex items-center justify-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-warm flex items-center justify-center text-primary-foreground text-xs font-bold shrink-0">
+                    {initials(testimonials[activeTestimonial].name)}
+                  </div>
+                  <div className="text-left">
+                    <p className="text-sm font-semibold text-foreground">{testimonials[activeTestimonial].name}</p>
+                    <p className="text-xs text-muted">{testimonials[activeTestimonial].role}</p>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+
+          <div className="flex items-center justify-center gap-4 mt-6">
+            <button
+              onClick={prevTestimonial}
+              aria-label="Previous testimonial"
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-primary/40 hover:text-primary transition-colors"
             >
-              <summary className="flex items-center justify-between cursor-pointer p-5 text-sm font-semibold text-foreground hover:text-primary transition-colors list-none [&::-webkit-details-marker]:hidden">
-                {f.q}
-                <ChevronRight size={16} className="text-muted transition-transform group-open:rotate-90" />
-              </summary>
-              <div className="px-5 pb-5 text-sm text-muted leading-relaxed">{f.a}</div>
-            </motion.details>
-          ))}
+              <ChevronLeft size={18} />
+            </button>
+            <div className="flex gap-2">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                  onClick={() => setActiveTestimonial(i)}
+                  className={`w-2 h-2 rounded-full transition-all ${
+                    i === activeTestimonial ? "bg-primary w-6" : "bg-border"
+                  }`}
+                />
+              ))}
+            </div>
+            <button
+              onClick={nextTestimonial}
+              aria-label="Next testimonial"
+              className="w-10 h-10 rounded-full border border-border flex items-center justify-center hover:border-primary/40 hover:text-primary transition-colors"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
         </div>
       </Section>
 
-      {/* Final CTA */}
-      <section className="py-20 md:py-28">
-        <div className="container">
-          <motion.div
-            {...fadeInUp}
-            className="bg-primary rounded-3xl p-10 md:p-16 text-center"
-          >
-            <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-4">
-              Still confused? Talk directly with us on WhatsApp.
-            </h2>
-            <p className="text-primary-foreground/70 mb-8 max-w-md mx-auto">
-              No pressure. Just a quick chat to see if GS Classes is the right fit for your child.
-            </p>
-            <Button variant="hero-outline" size="lg" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 border-0" asChild>
+      {/* FAQ — split layout */}
+      <Section>
+        <div className="grid md:grid-cols-12 gap-10">
+          <div className="md:col-span-4">
+            <span className="text-xs font-bold uppercase tracking-widest text-primary">FAQ</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mt-2 mb-4">Frequently Asked Questions</h2>
+            <div className="hidden md:flex w-16 h-16 rounded-2xl bg-accent items-center justify-center mt-6">
+              <HelpCircle size={28} className="text-primary" />
+            </div>
+          </div>
+          <div className="md:col-span-8">
+            <Accordion type="single" collapsible className="space-y-4">
+              {faqs.map((f, i) => (
+                <AccordionItem
+                  key={i}
+                  value={`item-${i}`}
+                  className="group bg-surface rounded-2xl border border-border/70 overflow-hidden px-5 [&>h3]:m-0"
+                >
+                  <AccordionTrigger className="text-sm font-semibold text-foreground hover:no-underline hover:text-primary py-5">
+                    {f.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-sm text-muted leading-relaxed pb-5">
+                    {f.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </Section>
+
+      {/* Final CTA — dark bookend to the hero */}
+      <section className="relative bg-ink bg-graph-paper py-16 sm:py-20 md:py-28 overflow-hidden">
+        <div className="absolute -top-10 -right-10 w-64 h-64 bg-warm/20 rounded-full blur-[100px]" />
+        <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-primary/25 rounded-full blur-[100px]" />
+        <div className="container relative text-center">
+          <motion.h2 {...fadeInUp} className="text-2xl md:text-4xl font-bold text-ink-foreground mb-4 max-w-2xl mx-auto">
+            Still confused? Talk directly with us on WhatsApp.
+          </motion.h2>
+          <motion.p {...fadeInUp} className="text-ink-foreground/60 mb-8 max-w-md mx-auto">
+            No pressure. Just a quick chat to see if GS Classes is the right fit for your child.
+          </motion.p>
+          <motion.div {...fadeInUp} className="flex flex-wrap gap-3 justify-center">
+            <Button variant="call" size="lg" className="rounded-full" asChild>
+              <a href={callLink}>
+                <Phone size={18} fill="currentColor" /> Call {phoneNumber}
+              </a>
+            </Button>
+            <Button variant="hero" size="lg" className="rounded-full" asChild>
               <a href={whatsappLink("Hi GS Classes, I'd like to know more.")}>
-                <MessageCircle size={18} /> Chat Now
+                <WhatsAppIcon size={18} /> Chat Now
               </a>
             </Button>
           </motion.div>

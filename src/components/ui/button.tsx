@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-semibold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 font-display",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-bold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 font-body",
   {
     variants: {
       variant: {
@@ -17,6 +17,7 @@ const buttonVariants = cva(
         whatsapp: "bg-whatsapp text-whatsapp-foreground shadow-md hover:shadow-lg hover:brightness-110 active:scale-[0.98]",
         hero: "bg-primary text-primary-foreground shadow-lg hover:shadow-xl hover:brightness-110 active:scale-[0.98] text-base",
         "hero-outline": "border-2 border-border bg-background hover:bg-surface hover:border-primary/30 hover:shadow-md text-base",
+        call: "bg-warm text-warm-foreground shadow-[0_2px_8px_rgba(0,0,0,0.15),0_0_18px_4px_hsl(var(--warm)/0.4)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.18),0_0_26px_6px_hsl(var(--warm)/0.5)] hover:brightness-105 active:scale-[0.98]",
       },
       size: {
         default: "h-10 px-5 py-2",

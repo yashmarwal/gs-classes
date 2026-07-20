@@ -14,7 +14,7 @@ const Section = ({ children, className = "", id }: SectionProps) => (
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
     transition={{ duration: 0.5 }}
-    className={`py-20 md:py-28 ${className}`}
+    className={`py-14 sm:py-20 md:py-28 scroll-mt-20 ${className}`}
   >
     <div className="container">{children}</div>
   </motion.section>

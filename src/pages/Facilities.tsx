@@ -1,7 +1,12 @@
 import { motion } from "framer-motion";
 import Section from "@/components/Section";
+import { Button } from "@/components/ui/button";
+import Seo from "@/components/Seo";
+import WhatsAppIcon from "@/components/WhatsAppIcon";
+import { whatsappLink, callLink, phoneNumber } from "@/lib/constants";
+import { breadcrumbJsonLd } from "@/lib/seo";
 import {
-  Users, Video, HeadphonesIcon, ClipboardCheck, Target, UserCheck
+  Users, Video, HeadphonesIcon, ClipboardCheck, Target, UserCheck, Phone
 } from "lucide-react";
 
 const fadeInUp = {
@@ -45,44 +50,76 @@ const facilities = [
 ];
 
 const Facilities = () => (
-  <div className="min-h-screen pt-20">
-    <section className="py-16 md:py-20 bg-surface">
-      <div className="container text-center">
-        <motion.h1 {...fadeInUp} className="text-4xl md:text-5xl font-extrabold text-foreground mb-4">
+  <div className="min-h-screen">
+    <Seo
+      title="Facilities — What Makes GS Classes Different"
+      description="Small batches, live interactive classes on Google Meet, dedicated doubt sessions, weekly tests, PYQ practice, and personal mentorship — every detail built around understanding."
+      path="/facilities"
+      jsonLd={breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Facilities", path: "/facilities" },
+      ])}
+    />
+    <section className="relative bg-ink bg-graph-paper pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[130px] -translate-y-1/3" />
+      <div className="container relative text-center">
+        <motion.span {...fadeInUp} className="inline-block text-xs font-bold uppercase tracking-widest text-warm mb-3">
+          Facilities
+        </motion.span>
+        <motion.h1 {...fadeInUp} className="text-4xl md:text-5xl font-bold text-ink-foreground mb-4">
           What Makes GS Classes Different
         </motion.h1>
-        <motion.p {...fadeInUp} className="text-muted max-w-lg mx-auto">
+        <motion.p {...fadeInUp} className="text-ink-foreground/60 max-w-lg mx-auto text-lg">
           Every detail is designed around one principle — the student must understand.
         </motion.p>
       </div>
     </section>
 
-    <div className="container py-16 md:py-24">
-      <div className="space-y-16 md:space-y-24">
+    <Section>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {facilities.map((f, i) => (
           <motion.div
             key={f.title}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className={`flex flex-col md:flex-row items-center gap-8 md:gap-14 ${
-              i % 2 === 1 ? "md:flex-row-reverse" : ""
-            }`}
+            transition={{ duration: 0.5, delay: i * 0.07 }}
+            className="group relative bg-background rounded-3xl p-7 shadow-card hover:shadow-card-hover transition-all duration-300 border border-border/70 hover:border-primary/30 hover:-translate-y-1"
           >
-            <div className="shrink-0">
-              <div className="w-20 h-20 md:w-24 md:h-24 rounded-3xl bg-accent flex items-center justify-center">
-                <f.icon size={36} className="text-primary" />
-              </div>
+            <span className="absolute top-6 right-6 text-xs font-mono text-primary/25 tabular-nums">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent to-secondary flex items-center justify-center mb-5">
+              <f.icon size={26} className="text-primary" />
             </div>
-            <div>
-              <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3">{f.title}</h3>
-              <p className="text-muted leading-relaxed max-w-xl">{f.desc}</p>
-            </div>
+            <h3 className="text-lg font-bold text-foreground mb-2">{f.title}</h3>
+            <p className="text-sm text-muted leading-relaxed">{f.desc}</p>
           </motion.div>
         ))}
       </div>
-    </div>
+    </Section>
+
+    <section className="relative bg-ink bg-graph-paper py-16 sm:py-20 overflow-hidden">
+      <div className="absolute -top-10 -right-10 w-64 h-64 bg-warm/20 rounded-full blur-[100px]" />
+      <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-primary/25 rounded-full blur-[100px]" />
+      <div className="container relative text-center">
+        <motion.h2 {...fadeInUp} className="text-2xl md:text-3xl font-bold text-ink-foreground mb-4 max-w-xl mx-auto">
+          See it for yourself in a free demo class.
+        </motion.h2>
+        <motion.div {...fadeInUp} className="flex flex-wrap gap-3 justify-center">
+          <Button variant="call" size="lg" className="rounded-full" asChild>
+            <a href={callLink}>
+              <Phone size={18} fill="currentColor" /> Call {phoneNumber}
+            </a>
+          </Button>
+          <Button variant="hero" size="lg" className="rounded-full" asChild>
+            <a href={whatsappLink("Hi GS Classes, I'd like to book a demo class.")}>
+              <WhatsAppIcon size={18} /> Book Free Demo
+            </a>
+          </Button>
+        </motion.div>
+      </div>
+    </section>
   </div>
 );
 
