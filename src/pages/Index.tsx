@@ -281,12 +281,12 @@ const Index = () => {
           <p className="text-muted max-w-lg mx-auto">Structured learning paths for every stage, from building basics to mastering advanced concepts.</p>
         </div>
 
-        <div className="flex md:flex-wrap md:justify-center gap-2 mb-10 overflow-x-auto no-scrollbar snap-x snap-mandatory px-6 -mx-6 md:px-0 md:mx-0">
+        <div className="flex flex-wrap justify-center gap-2 mb-10 px-6 md:px-0">
           {programs.map((p, i) => (
             <button
               key={p.title}
               onClick={() => setActiveProgram(i)}
-              className={`shrink-0 snap-start px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 border ${
+              className={`shrink-0 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 border ${
                 activeProgram === i
                   ? "bg-primary text-primary-foreground border-primary shadow-md"
                   : "bg-background text-muted border-border hover:border-primary/30 hover:text-foreground"
