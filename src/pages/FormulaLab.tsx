@@ -87,13 +87,21 @@ const FormulaLab = () => {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
+    // Search runs independently of the filters — typing a query searches every
+    // item regardless of active type/level/topic pills, instead of being
+    // restricted to whatever subset those filters currently show.
+    if (q) {
+      return allFormulaItems.filter((item) => {
+        const haystack = `${item.title} ${item.content} ${item.tags.join(" ")}`.toLowerCase();
+        return haystack.includes(q);
+      });
+    }
+
     return allFormulaItems.filter((item) => {
       if (typeFilter !== "all" && item.type !== typeFilter) return false;
       if (levelFilter !== "all" && item.classLevel !== levelFilter && item.classLevel !== "all") return false;
       if (topicFilter !== "all" && item.topic !== topicFilter) return false;
-      if (!q) return true;
-      const haystack = `${item.title} ${item.content} ${item.tags.join(" ")}`.toLowerCase();
-      return haystack.includes(q);
+      return true;
     });
   }, [query, typeFilter, levelFilter, topicFilter]);
 
