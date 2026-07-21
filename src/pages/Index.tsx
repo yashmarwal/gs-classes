@@ -18,7 +18,7 @@ import { whatsappLink, callLink, phoneNumber } from "@/lib/constants";
 import {
   Users, Video, HeadphonesIcon, ClipboardCheck, Brain,
   Phone, BookOpen, GraduationCap, Star,
-  ArrowRight, Quote, ChevronLeft, ChevronRight, HelpCircle
+  ArrowRight, Quote, ChevronLeft, ChevronRight, HelpCircle, Sigma
 } from "lucide-react";
 
 if (typeof window !== "undefined") {
@@ -235,6 +235,34 @@ const Index = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-warm" />
             </span>
           ))}
+        </div>
+      </div>
+
+      {/* Formula Lab promo — distinct callout, prominent tap target on mobile */}
+      <div className="py-4 md:py-5 bg-background">
+        <div className="container">
+          <motion.a
+            href="/formula-lab"
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            whileTap={{ scale: 0.98 }}
+            className="group relative flex items-center gap-4 overflow-hidden rounded-2xl bg-gradient-to-r from-primary to-primary/80 px-5 py-4 md:px-7 md:py-5 shadow-elevated"
+          >
+            <div className="absolute -right-6 -top-6 w-28 h-28 bg-white/10 rounded-full blur-2xl" />
+            <div className="w-11 h-11 md:w-12 md:h-12 rounded-2xl bg-white/15 flex items-center justify-center shrink-0 relative">
+              <Sigma size={22} className="text-white" />
+            </div>
+            <div className="flex-1 relative">
+              <div className="flex items-center gap-2 mb-0.5">
+                <span className="text-[10px] font-bold uppercase tracking-widest bg-warm text-warm-foreground px-2 py-0.5 rounded-full">New</span>
+                <span className="font-display font-bold text-white text-base md:text-lg">Formula Lab</span>
+              </div>
+              <p className="text-xs md:text-sm text-white/70">174 free formulas, shortcuts &amp; theorems — searchable, no sign-up.</p>
+            </div>
+            <ArrowRight size={20} className="text-white shrink-0 group-hover:translate-x-1 transition-transform relative" />
+          </motion.a>
         </div>
       </div>
 

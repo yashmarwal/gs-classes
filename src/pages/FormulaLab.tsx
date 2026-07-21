@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Section from "@/components/Section";
 import Seo from "@/components/Seo";
 import { Badge } from "@/components/ui/badge";
-import { breadcrumbJsonLd } from "@/lib/seo";
+import { siteUrl, breadcrumbJsonLd } from "@/lib/seo";
 import {
   allFormulaItems,
   topicLabels,
@@ -99,6 +99,21 @@ const FormulaLab = () => {
 
   const hasActiveFilters = query || typeFilter !== "all" || levelFilter !== "all" || topicFilter !== "all";
 
+  const learningResourceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    name: "GS Classes Formula Lab",
+    description:
+      "A free, searchable reference of 174 Mathematics formulas, theorems, shortcuts, and memory tips for Class 6 to 12, CBSE, ICSE, and JEE foundation.",
+    url: `${siteUrl}/formula-lab`,
+    learningResourceType: "Reference material",
+    educationalLevel: "Class 6 to 12, JEE Foundation",
+    inLanguage: "en",
+    isAccessibleForFree: true,
+    provider: { "@id": `${siteUrl}/#organization` },
+    teaches: Object.values(topicLabels),
+  };
+
   const clearFilters = () => {
     setQuery("");
     setTypeFilter("all");
@@ -112,10 +127,13 @@ const FormulaLab = () => {
         title="Formula Lab — Free Maths Formula Reference for Class 6–12 & JEE | GS Classes"
         description="A free, searchable library of 174 Maths formulas, theorems, shortcuts, and memory tips for Class 6 to 12, CBSE, ICSE, and JEE foundation — algebra, trigonometry, calculus, geometry, and more."
         path="/formula-lab"
-        jsonLd={breadcrumbJsonLd([
-          { name: "Home", path: "/" },
-          { name: "Formula Lab", path: "/formula-lab" },
-        ])}
+        jsonLd={[
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Formula Lab", path: "/formula-lab" },
+          ]),
+          learningResourceJsonLd,
+        ]}
       />
 
       {/* Page Header */}
