@@ -1,8 +1,6 @@
 export const siteUrl = "https://gsclasses.online";
 export const siteName = "GS Classes";
-// TODO: swap for a proper 1200x630 branded OG image once one exists —
-// using the existing favicon as an interim placeholder so this never 404s.
-export const defaultOgImage = `${siteUrl}/favicon.png`;
+export const defaultOgImage = `${siteUrl}/og-image.png`;
 
 export const founderJsonLd = {
   "@context": "https://schema.org",
@@ -20,8 +18,8 @@ export const organizationJsonLd = {
   name: "GS Classes",
   alternateName: "GS Classes Mathematics Coaching",
   url: siteUrl,
-  logo: `${siteUrl}/favicon.png`,
-  image: `${siteUrl}/favicon.png`,
+  logo: `${siteUrl}/logo.png`,
+  image: `${siteUrl}/og-image.png`,
   description:
     "Mathematics coaching for students from Class 6 to 12 and JEE foundation, covering CBSE and ICSE, with small batches of maximum 5 students, live classes on Google Meet, and personal doubt-solving attention.",
   telephone: "+919990118617",

@@ -30,7 +30,7 @@ const DemoPopup = () => {
         <div className="relative bg-ink bg-graph-paper px-7 pt-8 pb-6 text-center overflow-hidden">
           <div className="absolute -top-8 -right-8 w-40 h-40 bg-primary/25 rounded-full blur-[70px]" />
           <div className="relative flex flex-col items-center">
-            <Logo className="w-12 h-12 rounded-2xl mb-4" textClassName="text-base" />
+            <Logo className="w-12 h-12 rounded-2xl mb-4" />
             <span className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-warm mb-2">
               <Sparkles size={12} /> Free Demo Class
             </span>

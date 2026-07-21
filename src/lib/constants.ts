@@ -7,3 +7,5 @@ export const whatsappLink = (msg: string) =>
 
 export const emailLink = (subject: string, body: string) =>
   `mailto:gsclasses74@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+export const instagramLink = "https://www.instagram.com/gs_classes/";

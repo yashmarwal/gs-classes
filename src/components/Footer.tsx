@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import Logo from "@/components/Logo";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
-import { whatsappLink, callLink, phoneNumberDisplay } from "@/lib/constants";
-import { Phone, Mail } from "lucide-react";
+import { whatsappLink, callLink, phoneNumberDisplay, instagramLink } from "@/lib/constants";
+import { Phone, Mail, Instagram } from "lucide-react";
 
 const programs = [
   { label: "Class 6–8 Foundation", slug: "class-8-foundation" },
@@ -75,6 +75,14 @@ const Footer = () => (
               className="flex items-center gap-2 text-sm opacity-70 hover:opacity-100 transition-opacity w-fit"
             >
               <Mail size={16} /> gsclasses74@gmail.com
+            </a>
+            <a
+              href={instagramLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm opacity-70 hover:opacity-100 transition-opacity w-fit"
+            >
+              <Instagram size={16} /> Instagram
             </a>
           </div>
         </div>
