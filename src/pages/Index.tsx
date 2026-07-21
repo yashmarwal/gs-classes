@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import Section from "@/components/Section";
 import Seo from "@/components/Seo";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
-import CountUp from "@/components/CountUp";
 import FloatingMathSymbols from "@/components/FloatingMathSymbols";
+import ChalkboardEquation from "@/components/ChalkboardEquation";
 import {
   Accordion,
   AccordionContent,
@@ -18,7 +18,7 @@ import { whatsappLink, callLink, phoneNumber } from "@/lib/constants";
 import {
   Users, Video, HeadphonesIcon, ClipboardCheck, Brain,
   Phone, BookOpen, GraduationCap, Star,
-  ArrowRight, Quote, ChevronLeft, ChevronRight, HelpCircle, Sigma
+  ArrowRight, Quote, ChevronLeft, ChevronRight, HelpCircle, Sigma, CheckCircle2
 } from "lucide-react";
 
 if (typeof window !== "undefined") {
@@ -157,71 +157,62 @@ const Index = () => {
         description="Expert online Maths coaching for Class 6 to 12, CBSE, ICSE & JEE, in small batches of max 5 students. Live classes on Google Meet, personal doubt support, weekly tests, and concept clarity."
         path="/"
       />
-      {/* Hero — dark editorial band with graph-paper motif */}
+      {/* Hero — asymmetric split: editorial copy beside a live "proof" chalkboard */}
       <section
         ref={heroRef}
         onMouseMove={handleHeroMouseMove}
-        className="relative bg-ink bg-graph-paper pt-32 pb-16 md:pt-44 md:pb-20 overflow-hidden"
+        className="relative bg-ink bg-graph-paper pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden"
       >
         <div className="absolute top-10 right-0 w-[600px] h-[600px] bg-primary/25 rounded-full blur-[130px] -translate-y-1/3 translate-x-1/4" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-warm/15 rounded-full blur-[120px] translate-y-1/3 -translate-x-1/4" />
         <motion.div className="absolute inset-0 hidden md:block" style={{ background: spotlightBackground }} />
         <FloatingMathSymbols />
 
-        <div className="container relative text-center">
-          <motion.div {...fadeInUp} className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-ink-foreground/80 mb-7">
-            <span className="w-1.5 h-1.5 rounded-full bg-warm animate-pulse" />
-            Trusted by 500+ students across Delhi NCR
-          </motion.div>
+        <div className="container relative grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="text-center lg:text-left">
+            <motion.h1
+              {...fadeInUp}
+              className="font-display text-4xl md:text-6xl lg:text-[3.75rem] xl:text-[4.25rem] font-bold text-ink-foreground leading-[1.05] mb-5"
+            >
+              Concepts that actually click.
+            </motion.h1>
 
-          <motion.h1
-            {...fadeInUp}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold text-ink-foreground leading-[1.05] mb-6 max-w-4xl mx-auto"
-          >
-            Build Strong Concepts in{" "}
-            <span className="bg-gradient-to-r from-primary via-primary to-warm bg-clip-text text-transparent">
-              Mathematics
-            </span>
-            , from Class 6 to 12 &amp; JEE
-          </motion.h1>
+            <motion.p {...fadeInUp} className="text-lg md:text-xl text-ink-foreground/60 max-w-md mx-auto lg:mx-0 mb-9 text-pretty">
+              Mathematics coaching for Class 6 to 12 &amp; JEE — small batches, real understanding, not rote memorization.
+            </motion.p>
 
-          <motion.p {...fadeInUp} className="text-lg md:text-xl text-ink-foreground/60 max-w-xl mx-auto mb-10 text-pretty">
-            Small Batches. Personal Attention. Real Results.
-          </motion.p>
+            <motion.div {...fadeInUp} className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center lg:justify-start mb-7">
+              <Button variant="hero" size="lg" className="rounded-full" asChild>
+                <a href={whatsappLink("Hi GS Classes, I'd like to book a demo class.")}>
+                  Book Free Demo <ArrowRight size={18} />
+                </a>
+              </Button>
+              <Button variant="call" size="lg" className="rounded-full" asChild>
+                <a href={callLink}>
+                  <Phone size={18} fill="currentColor" /> Call {phoneNumber}
+                </a>
+              </Button>
+              <Button variant="whatsapp" size="lg" className="hidden sm:inline-flex rounded-full" asChild>
+                <a href={whatsappLink("Hi GS Classes, I have a question.")}>
+                  <WhatsAppIcon size={18} /> Chat on WhatsApp
+                </a>
+              </Button>
+            </motion.div>
 
-          <motion.div {...fadeInUp} className="flex flex-col sm:flex-row flex-wrap gap-3 justify-center mb-16">
-            <Button variant="hero" size="lg" className="rounded-full" asChild>
-              <a href={whatsappLink("Hi GS Classes, I'd like to book a demo class.")}>
-                Book Free Demo <ArrowRight size={18} />
-              </a>
-            </Button>
-            <Button variant="call" size="lg" className="hidden sm:inline-flex rounded-full" asChild>
-              <a href={callLink}>
-                <Phone size={18} fill="currentColor" /> Call {phoneNumber}
-              </a>
-            </Button>
-            <Button variant="whatsapp" size="lg" className="hidden sm:inline-flex rounded-full" asChild>
-              <a href={whatsappLink("Hi GS Classes, I have a question.")}>
-                <WhatsAppIcon size={18} /> Chat on WhatsApp
-              </a>
-            </Button>
-          </motion.div>
+            <motion.p {...fadeInUp} className="flex items-center justify-center lg:justify-start gap-2 text-sm text-ink-foreground/40">
+              <CheckCircle2 size={16} className="text-warm" />
+              Trusted by 500+ students across Delhi NCR
+            </motion.p>
+          </div>
 
-          {/* Inline stat rail, replaces the old floating card */}
           <motion.div
-            {...fadeInUp}
-            className="grid grid-cols-3 divide-x divide-white/10 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20, rotate: 3 }}
+            whileInView={{ opacity: 1, y: 0, rotate: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="w-full max-w-md mx-auto lg:mx-0 lg:justify-self-end"
           >
-            {[
-              { value: <CountUp to={5} />, label: "Students per Batch" },
-              { value: "∞", label: "Doubt Sessions" },
-              { value: "✓", label: "Weekly Tests" },
-            ].map((s) => (
-              <div key={s.label} className="px-2 sm:px-6 py-2 text-center">
-                <p className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-ink-foreground mb-1">{s.value}</p>
-                <p className="text-[11px] sm:text-xs text-ink-foreground/50 text-balance">{s.label}</p>
-              </div>
-            ))}
+            <ChalkboardEquation />
           </motion.div>
         </div>
       </section>

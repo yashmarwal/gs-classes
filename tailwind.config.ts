@@ -16,6 +16,7 @@ export default {
       fontFamily: {
         display: ["Crimson Pro", "Georgia", "serif"],
         body: ["Atkinson Hyperlegible", "system-ui", "sans-serif"],
+        hand: ["Kalam", "cursive"],
       },
       colors: {
         border: "hsl(var(--border))",
