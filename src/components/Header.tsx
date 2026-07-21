@@ -63,7 +63,7 @@ const Header = () => {
             <Link
               key={link.to}
               to={link.to}
-              className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors duration-200 ${
+              className={`relative px-4 py-2 rounded-full text-sm font-semibold transition-colors duration-200 ${
                 location.pathname === link.to
                   ? "text-primary-foreground bg-primary shadow-sm"
                   : solid
@@ -72,6 +72,9 @@ const Header = () => {
               }`}
             >
               {link.label}
+              {link.to === "/formula-lab" && location.pathname !== link.to && (
+                <span className="absolute top-1 right-1.5 w-1.5 h-1.5 rounded-full bg-warm animate-pulse" />
+              )}
             </Link>
           ))}
         </nav>

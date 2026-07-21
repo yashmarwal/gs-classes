@@ -251,6 +251,10 @@ const Index = () => {
             className="group relative flex items-center gap-4 overflow-hidden rounded-2xl bg-gradient-to-r from-primary to-primary/80 px-5 py-4 md:px-7 md:py-5 shadow-elevated"
           >
             <div className="absolute -right-6 -top-6 w-28 h-28 bg-white/10 rounded-full blur-2xl" />
+            {/* Continuous shimmer sweep — keeps the card noticeable without being distracting */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <div className="shimmer-sweep absolute inset-y-0 left-0 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
+            </div>
             <div className="w-11 h-11 md:w-12 md:h-12 rounded-2xl bg-white/15 flex items-center justify-center shrink-0 relative">
               <Sigma size={22} className="text-white" />
             </div>

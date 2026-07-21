@@ -114,6 +114,10 @@
     animation: marquee 22s linear infinite;
   }
 
+  .shimmer-sweep {
+    animation: shimmer-sweep 3.5s ease-in-out infinite;
+  }
+
   /* Hides scrollbars on horizontally-scrollable mobile rows (tab pills, etc.) */
   .no-scrollbar {
     -ms-overflow-style: none;
@@ -131,4 +135,9 @@
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+@keyframes shimmer-sweep {
+  0% { transform: translateX(-120%); }
+  55%, 100% { transform: translateX(220%); }
 }
