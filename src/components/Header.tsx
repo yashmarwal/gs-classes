@@ -11,6 +11,7 @@ const navLinks = [
   { label: "Home", to: "/" },
   { label: "Courses", to: "/courses" },
   { label: "Facilities", to: "/facilities" },
+  { label: "Formula Lab", to: "/formula-lab" },
   { label: "About", to: "/about" },
   { label: "Contact", to: "/contact" },
 ];

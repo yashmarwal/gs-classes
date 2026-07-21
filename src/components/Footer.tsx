@@ -28,13 +28,20 @@ const Footer = () => (
         <div>
           <h4 className="font-body font-bold mb-4 text-xs uppercase tracking-widest opacity-50">Quick Links</h4>
           <div className="flex flex-col gap-3">
-            {["Home", "Courses", "Facilities", "About", "Contact"].map((l) => (
+            {[
+              { label: "Home", to: "/" },
+              { label: "Courses", to: "/courses" },
+              { label: "Facilities", to: "/facilities" },
+              { label: "Formula Lab", to: "/formula-lab" },
+              { label: "About", to: "/about" },
+              { label: "Contact", to: "/contact" },
+            ].map((l) => (
               <Link
-                key={l}
-                to={l === "Home" ? "/" : `/${l.toLowerCase()}`}
+                key={l.to}
+                to={l.to}
                 className="text-sm opacity-70 hover:opacity-100 hover:text-primary-foreground transition-opacity w-fit"
               >
-                {l}
+                {l.label}
               </Link>
             ))}
           </div>
